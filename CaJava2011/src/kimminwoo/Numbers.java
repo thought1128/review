@@ -3,14 +3,16 @@ package kimminwoo;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class Numbers {
+public class Numbers implements NumberFace {
 	Scanner user = new Scanner(System.in);
+
 	int[] random = new int[5];
 	int[] userNumber = new int[5];
 	int menu = 0;
 	boolean run = true;
 	int seconds = 29;
 
+	@Override
 	public void manual() {
 		System.out.println("--------------------------------------------");
 		System.out.println("| 1 ~ 100 사이의 숫자가 나옵니다                                  |");
@@ -21,6 +23,7 @@ public class Numbers {
 		System.out.println("--------------------------------------------");
 	}
 
+	@Override
 	public int menu() {
 		System.out.println("----------------");
 		System.out.println("|   숫자 외우기      |");
@@ -38,10 +41,12 @@ public class Numbers {
 		return menu;
 	}
 
+	@Override
 	public int[] level(int lv) {
 		return new int[lv];
 	}
 
+	@Override
 	public void levelMenu() {
 		System.out.println("몇개의 숫자를 외울지 입력해주세요");
 		System.out.print("> ");
@@ -51,10 +56,12 @@ public class Numbers {
 		System.out.println("이제 " + lv + "개의 숫자가 나옵니다.");
 	}
 
+	@Override
 	public int time(int sec) {
 		return seconds = sec;
 	}
 
+	@Override
 	public void timeMenu() {
 		System.out.println("시간을 정해주세요");
 		System.out.print("> ");
@@ -63,6 +70,7 @@ public class Numbers {
 		System.out.println("시간이 " + sec + "초로 설정 되었습니다.");
 	}
 
+	@Override
 	public void random() {
 
 		for (int i = 0; i < random.length; i++) {
@@ -76,9 +84,10 @@ public class Numbers {
 		}
 	}
 
+	@Override
 	public void memorization(int seconds) {
 		random();
-		System.out.println("암기 시간은 "+seconds+"초 입니다.");
+		System.out.println("암기 시간은 " + (seconds+1) + "초 입니다.");
 		System.out.println(Arrays.toString(random));
 
 		int countdownSeconds = seconds;
@@ -97,6 +106,7 @@ public class Numbers {
 
 	}
 
+	@Override
 	public void userSet() {
 		System.out.println("암기한 숫자를 입력해주세요.");
 
@@ -124,6 +134,7 @@ public class Numbers {
 
 	}
 
+	@Override
 	public void result() {
 		System.out.println("정답");
 		System.out.printf("[ ");
@@ -134,6 +145,7 @@ public class Numbers {
 
 	}
 
+	@Override
 	public void result(int[] array) {
 		System.out.println("입력한 숫자");
 		System.out.printf("[ ");
@@ -143,6 +155,7 @@ public class Numbers {
 		System.out.println("]");
 	}
 
+	@Override
 	public void rank() {
 
 		int x = 0;
@@ -161,6 +174,7 @@ public class Numbers {
 		System.out.println();
 	}
 
+	@Override
 	public boolean rank(int challenge, boolean ok) {
 		int x = 0;
 		for (int i = 0; i < random.length; i++) {
@@ -175,30 +189,32 @@ public class Numbers {
 			System.out.println();
 			return true;
 		} else {
-			System.out.println(challenge+"단계 도전에 실패하였습니다.");
+			System.out.println(challenge + "단계 도전에 실패하였습니다.");
 			System.out.println();
 			return false;
 		}
 	}
 
+	@Override
 	public void challenge() {
 		int lv = 1;
 		int time = 1;
 		int challenge = 1;
-		boolean challengeTrue= true;
+		boolean challengeTrue = true;
 		while (challengeTrue) {
 			random = level(lv);
 			userNumber = level(lv);
 			time(time);
 			memorization(seconds);
-			challengeTrue=rank(challenge,challengeTrue);
+			challengeTrue = rank(challenge, challengeTrue);
 			challenge++;
 			lv++;
-			time=time+2;
+			time = time + 2;
 		}
 
 	}
 
+	@Override
 	public void run() {
 
 		while (run) {
@@ -214,10 +230,9 @@ public class Numbers {
 				challenge();
 			} else if (menu == 5) {
 				manual();
-				run = false;
 			} else if (menu == 6) {
 				System.out.println("종료되었습니다.");
-				break;
+				run = false;
 			} else {
 				System.out.println("잘못 입력하셨습니다.");
 				System.out.println("1 ~ 6 사이의 숫자만 입력해주세요.");
