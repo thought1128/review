@@ -8,6 +8,11 @@ public class Animal02 {
 	public void setName(String name) {
 		this.name = name;
 	}
+	public void set(String name) {
+		if(name.length()>3) {
+			this.name=name;
+		}
+	}
 	public static void main(String[] args) {
 		Animal02 lion=new Animal02();
 		Animal02 tiger=new Animal02();
@@ -18,7 +23,8 @@ public class Animal02 {
 		System.out.println(lion.getName());
 		System.out.println(tiger.getName());
 		System.out.println(leopard.getName());
-
+		tiger.set("사자");
+		System.out.println(tiger.name);
 	}
 
 }
