@@ -11,6 +11,8 @@ import java.io.OutputStream;
 public class Record {
 	public static void main(String[] args) {
 		String name="제발";
+		StringBuffer a= new StringBuffer();
+
 		//name=user.next();
 		int score=10;
 		try {
@@ -29,9 +31,11 @@ public class Record {
          FileReader file_reader = new FileReader(file);
          int cur = 0;
          while((cur = file_reader.read()) != -1){
-
-        	System.out.print(cur);
+        	a.append((char)cur);
          }
+         String x=a.toString();
+         int z= Integer.parseInt(x);
+         System.out.println(z+1);
          file_reader.close();
         }catch (FileNotFoundException e) {
             e.getStackTrace();

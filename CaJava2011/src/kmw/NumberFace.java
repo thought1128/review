@@ -18,6 +18,6 @@ public interface NumberFace {
 	public boolean rank(int challenge, boolean ok);
 	public void challenge();
 	public void run();
-	public void save(int score);
+	public String save(int score);
 
 }

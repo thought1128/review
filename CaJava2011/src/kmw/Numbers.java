@@ -1,6 +1,10 @@
 package kmw;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -13,7 +17,7 @@ public class Numbers implements NumberFace {
 	private int menu = 0;
 	private boolean run = true;
 	private int seconds = 29;
-	private int challenge = 0;
+	private int challenge = 1;
 
 	@Override
 	public void manual() {
@@ -49,7 +53,7 @@ public class Numbers implements NumberFace {
 		System.out.println("-----------------");
 		System.out.println("|  저장 및 불러오기   |");
 		System.out.println("-----------------");
-		System.out.println("|  1. 저장              |");
+		System.out.println("|  1. 저장하기        |");
 		System.out.println("|  2. 불러오기        |");
 		System.out.println("-----------------");
 		System.out.print("> ");
@@ -233,6 +237,25 @@ public class Numbers implements NumberFace {
 
 	}
 
+	public void challenge(int challenge) {
+		int lv = challenge;
+		int time = challenge;
+		this.challenge = challenge;
+		boolean challengeTrue = true;
+		while (challengeTrue) {
+			random = level(lv);
+			userNumber = level(lv);
+			time(time);
+			memorization(seconds);
+			challengeTrue = rank(this.challenge, challengeTrue);
+			this.challenge++;
+			lv++;
+			time = time + 2;
+		}
+		this.challenge = 0;
+
+	}
+
 	@Override
 	public void run() {
 
@@ -246,16 +269,18 @@ public class Numbers implements NumberFace {
 			} else if (menu == 3) {
 				timeMenu();
 			} else if (menu == 4) {
-				challenge();
+				challenge(challenge);
 			} else if (menu == 5) {
 				manual();
 			} else if (menu == 6) {
 				menu2();
-				if(menu == 1) {
+				if (menu == 1) {
 					save(challenge);
-				}else if(menu ==2 ) {
-					
-				}else {
+				} else if (menu == 2) {
+					String name=user.next();
+					user.nextLine();
+					load(name);
+				} else {
 					System.out.println("잘못 입력하셨습니다.");
 					System.out.println("1 이나 2를 입력해주세요.");
 				}
@@ -264,15 +289,16 @@ public class Numbers implements NumberFace {
 				run = false;
 			} else {
 				System.out.println("잘못 입력하셨습니다.");
-				System.out.println("1 ~ 6 사이의 숫자만 입력해주세요.");
+				System.out.println("1 ~ 8 사이의 숫자만 입력해주세요.");
 			}
 		}
 
 	}
 
 	@Override
-	public void save(int score) {
+	public String save(int score) {
 		String name = "김민우";
+		System.out.print("이름을 입력해주세요> ");
 		name = user.next();
 		try {
 			OutputStream record = new FileOutputStream("C:/Users/admin/Desktop/" + name + ".txt");
@@ -281,6 +307,28 @@ public class Numbers implements NumberFace {
 			record.write(by);
 			record.close();
 		} catch (Exception e) {
+			e.getStackTrace();
+		}
+		return name;
+	}
+
+	public void load(String name) {
+		StringBuffer a = new StringBuffer();
+		try {
+			File file = new File("C:/Users/admin/Desktop/" + name + ".txt");
+			FileReader file_reader = new FileReader(file);
+			int cur = 0;
+			while ((cur = file_reader.read()) != -1) {
+				a.append((char) cur);
+			}
+			String x = a.toString();
+			int z = Integer.parseInt(x);
+			file_reader.close();
+		} catch (FileNotFoundException e) {
+			System.out.println("파일명을 정확히 입력해주세요");
+			e.getStackTrace();
+		} catch (IOException e) {
+			System.out.println("파일명을 정확히 입력해주세요");
 			e.getStackTrace();
 		}
 	}
