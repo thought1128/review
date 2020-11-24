@@ -1,4 +1,4 @@
-package kimminwoo;
+package kmw;
 
 public class Start {
 

@@ -1,9 +1,10 @@
-package kimminwoo;
+package kmw;
 
 
 public interface NumberFace {
 	public void manual();
 	public int menu();
+	public int menu2();
 	public int[] level(int lv);
 	public void levelMenu();
 	public int time(int sec);
@@ -17,5 +18,6 @@ public interface NumberFace {
 	public boolean rank(int challenge, boolean ok);
 	public void challenge();
 	public void run();
+	public void save(int score);
 
 }

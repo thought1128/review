@@ -1,22 +1,25 @@
-package kimminwoo;
+package kmw;
 
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.Scanner;
 
 public class Numbers implements NumberFace {
 	Scanner user = new Scanner(System.in);
 
-	int[] random = new int[5];
-	int[] userNumber = new int[5];
-	int menu = 0;
-	boolean run = true;
-	int seconds = 29;
+	private int[] random = new int[5];
+	private int[] userNumber = new int[5];
+	private int menu = 0;
+	private boolean run = true;
+	private int seconds = 29;
+	private int challenge = 0;
 
 	@Override
 	public void manual() {
 		System.out.println("--------------------------------------------");
 		System.out.println("| 1 ~ 100 사이의 숫자가 나옵니다                                  |");
-		System.out.println("| 기본은 숫자 5개 시간은 30초입니다                                 |");
+		System.out.println("| 기본 설정은 숫자가 5개, 시간은 30초입니다                    |");
 		System.out.println("| 숫자개수는 암기할 숫자의 개수를 설정할 수 있습니다          |");
 		System.out.println("| 시간을 설정할 수 있습니다(초 단위)                |");
 		System.out.println("| 암기한 숫자는 하나씩 입력하셔야 합니다                           |");
@@ -32,13 +35,28 @@ public class Numbers implements NumberFace {
 		System.out.println("|  2. 숫자개수      |");
 		System.out.println("|  3. 시간/초       |");
 		System.out.println("|  4. 도전모드      |");
-		System.out.println("|  5. 설명서         |");
-		System.out.println("|  6. 종료            |");
+		System.out.println("|  6. 기록            |");
+		System.out.println("|  7. 설명서         |");
+		System.out.println("|  8. 종료            |");
 		System.out.println("----------------");
 		System.out.print("> ");
 		menu = user.nextInt();
 		user.nextLine();
 		return menu;
+	}
+
+	public int menu2() {
+		System.out.println("-----------------");
+		System.out.println("|  저장 및 불러오기   |");
+		System.out.println("-----------------");
+		System.out.println("|  1. 저장              |");
+		System.out.println("|  2. 불러오기        |");
+		System.out.println("-----------------");
+		System.out.print("> ");
+		menu = user.nextInt();
+		user.nextLine();
+		return menu;
+
 	}
 
 	@Override
@@ -87,7 +105,7 @@ public class Numbers implements NumberFace {
 	@Override
 	public void memorization(int seconds) {
 		random();
-		System.out.println("암기 시간은 " + (seconds+1) + "초 입니다.");
+		System.out.println("암기 시간은 " + (seconds + 1) + "초 입니다.");
 		System.out.println(Arrays.toString(random));
 
 		int countdownSeconds = seconds;
@@ -199,7 +217,7 @@ public class Numbers implements NumberFace {
 	public void challenge() {
 		int lv = 1;
 		int time = 1;
-		int challenge = 1;
+		challenge = 1;
 		boolean challengeTrue = true;
 		while (challengeTrue) {
 			random = level(lv);
@@ -211,6 +229,7 @@ public class Numbers implements NumberFace {
 			lv++;
 			time = time + 2;
 		}
+		challenge = 0;
 
 	}
 
@@ -231,6 +250,16 @@ public class Numbers implements NumberFace {
 			} else if (menu == 5) {
 				manual();
 			} else if (menu == 6) {
+				menu2();
+				if(menu == 1) {
+					save(challenge);
+				}else if(menu ==2 ) {
+					
+				}else {
+					System.out.println("잘못 입력하셨습니다.");
+					System.out.println("1 이나 2를 입력해주세요.");
+				}
+			} else if (menu == 7) {
 				System.out.println("종료되었습니다.");
 				run = false;
 			} else {
@@ -239,6 +268,21 @@ public class Numbers implements NumberFace {
 			}
 		}
 
+	}
+
+	@Override
+	public void save(int score) {
+		String name = "김민우";
+		name = user.next();
+		try {
+			OutputStream record = new FileOutputStream("C:/Users/admin/Desktop/" + name + ".txt");
+			String lv = score + "";
+			byte[] by = lv.getBytes();
+			record.write(by);
+			record.close();
+		} catch (Exception e) {
+			e.getStackTrace();
+		}
 	}
 
 }
