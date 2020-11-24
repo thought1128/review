@@ -8,16 +8,14 @@ public class ClassStudy {
 		this.c=c;
 	}
 	String pass() {
-		if((a+b+c)/3.0>300/2) {
-			return "합격";
-		}else {
-			return "불합격";
-		}
-		
+		/*
+		 * if((a+b+c)/3.0>70) { return "합격"; }else { return "불합격"; }
+		 */
+		return average()>70 ? "합격":"불합격";
 	}
 	float average() {
 		
-		return (float)((a+b+c)/3.0);
+		return (float)(a+b+c)/3.0f;
 	}
 	int total() {
 		
