@@ -9,7 +9,7 @@ import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class Numbers implements NumberFace {
+public class Numbers extends NumberFace {
 	Scanner user = new Scanner(System.in);
 
 	private int[] random = new int[5];
@@ -18,47 +18,64 @@ public class Numbers implements NumberFace {
 	private boolean run = true;
 	private int seconds = 29;
 	private int challenge = 1;
+	private int save = 1;
+	private String textValue;
 
 	@Override
 	public void manual() {
-		System.out.println("--------------------------------------------");
-		System.out.println("| 1 ~ 100 사이의 숫자가 나옵니다                                  |");
-		System.out.println("| 기본 설정은 숫자가 5개, 시간은 30초입니다                    |");
-		System.out.println("| 숫자개수는 암기할 숫자의 개수를 설정할 수 있습니다          |");
-		System.out.println("| 시간을 설정할 수 있습니다(초 단위)                |");
-		System.out.println("| 암기한 숫자는 하나씩 입력하셔야 합니다                           |");
-		System.out.println("--------------------------------------------");
+		System.out.println("-----------------------------------------");
+		System.out.println("|\s1 ~ 100 사이의 숫자가 나옵니다\t\t|");
+		System.out.println("|\s기본 설정은 숫자가 5개, 시간은 30초입니다\t|");
+		System.out.println("|\s숫자개수는 암기할 숫자의 개수를 설정할 수 있습니다\t|");
+		System.out.println("|\s시간을 설정할 수 있습니다(초 단위)\t\t|");
+		System.out.println("|\s암기한 숫자는 하나씩 입력하셔야 합니다\t\t|");
+		System.out.println("-----------------------------------------");
 	}
 
 	@Override
 	public int menu() {
-		System.out.println("----------------");
-		System.out.println("|   숫자 외우기      |");
-		System.out.println("----------------");
-		System.out.println("|  1. 암기하기      |");
-		System.out.println("|  2. 숫자개수      |");
-		System.out.println("|  3. 시간/초       |");
-		System.out.println("|  4. 도전모드      |");
-		System.out.println("|  6. 기록            |");
-		System.out.println("|  7. 설명서         |");
-		System.out.println("|  8. 종료            |");
-		System.out.println("----------------");
-		System.out.print("> ");
-		menu = user.nextInt();
-		user.nextLine();
+		try {
+			System.out.println("----------------");
+			System.out.println("|\s\s\s숫자 외우기\s\s\s\s\s\s|");
+			System.out.println("----------------");
+			System.out.println("|\s\s1.\s암기하기\s\s\s\s\s\s|");
+			System.out.println("|\s\s2.\s숫자개수\s\s\s\s\s\s|");
+			System.out.println("|\s\s3.\s시간/초\s\s\s\s\s\s\s|");
+			System.out.println("|\s\s4.\s도전모드\s\s\s\s\s\s|");
+			System.out.println("|\s\s5.\s도전기록\s\s\s\s\s\s|");
+			System.out.println("|\s\s6.\s설명서\s\s\s\s\s\s\s\s\s|");
+			System.out.println("|\s\s7.\s종료\s\s\s\s\s\s\s\s\s\s\s\s|");
+			System.out.println("----------------");
+			System.out.print(">\s");
+			menu = user.nextInt();
+			user.nextLine();
+		} catch (Exception e) {
+			user.nextLine();
+			System.out.println("문자는 입력이 되지 않습니다.");
+			System.out.println("1 ~ 7 사이의 숫자를 입력하셔야 합니다");
+			menu();
+		}
+
 		return menu;
 	}
 
 	public int menu2() {
-		System.out.println("-----------------");
-		System.out.println("|  저장 및 불러오기   |");
-		System.out.println("-----------------");
-		System.out.println("|  1. 저장하기        |");
-		System.out.println("|  2. 불러오기        |");
-		System.out.println("-----------------");
-		System.out.print("> ");
-		menu = user.nextInt();
-		user.nextLine();
+		try {
+			System.out.println("-----------------");
+			System.out.println("|\s\s저장 및 불러오기\s\s\s|");
+			System.out.println("-----------------");
+			System.out.println("|\s\s1.\s저장하기\s\s\s\s\s\s\s\s|");
+			System.out.println("|\s\s2.\s불러오기\s\s\s\s\s\s\s\s|");
+			System.out.println("-----------------");
+			System.out.print("> ");
+			menu = user.nextInt();
+			user.nextLine();
+		} catch (Exception e) {
+			user.nextLine();
+			System.out.println("문자는 입력이 되지 않습니다");
+			System.out.println("1과 2로 메뉴를 선택해야 합니다");
+			menu2();
+		}
 		return menu;
 
 	}
@@ -70,12 +87,19 @@ public class Numbers implements NumberFace {
 
 	@Override
 	public void levelMenu() {
-		System.out.println("몇개의 숫자를 외울지 입력해주세요");
-		System.out.print("> ");
-		int lv = user.nextInt();
-		random = level(lv);
-		userNumber = level(lv);
-		System.out.println("이제 " + lv + "개의 숫자가 나옵니다.");
+		try {
+			System.out.println("몇개의 숫자를 외울지 입력해주세요");
+			System.out.print(">\s");
+			int lv = user.nextInt();
+			random = level(lv);
+			userNumber = level(lv);
+			System.out.println("이제\s" + lv + "개의 숫자가 나옵니다.");
+		} catch (Exception e) {
+			user.nextLine();
+			System.out.println("문자는 입력할 수 없습니다.");
+			levelMenu();
+		}
+
 	}
 
 	@Override
@@ -85,11 +109,18 @@ public class Numbers implements NumberFace {
 
 	@Override
 	public void timeMenu() {
-		System.out.println("시간을 정해주세요");
-		System.out.print("> ");
-		int sec = user.nextInt();
-		seconds = sec - 1;
-		System.out.println("시간이 " + sec + "초로 설정 되었습니다.");
+		try {
+			System.out.println("시간을 정해주세요(단위: 초)");
+			System.out.print("> ");
+			int sec = user.nextInt();
+			seconds = sec - 1;
+			System.out.println("시간이\s" + sec + "초로 설정 되었습니다.");
+		} catch (Exception e) {
+			user.nextLine();
+			System.out.println("문자는 입력할 수 없습니다.");
+			timeMenu();
+		}
+
 	}
 
 	@Override
@@ -109,7 +140,7 @@ public class Numbers implements NumberFace {
 	@Override
 	public void memorization(int seconds) {
 		random();
-		System.out.println("암기 시간은 " + (seconds + 1) + "초 입니다.");
+		System.out.println("암기 시간은\s" + (seconds + 1) + "초 입니다.");
 		System.out.println(Arrays.toString(random));
 
 		int countdownSeconds = seconds;
@@ -130,28 +161,35 @@ public class Numbers implements NumberFace {
 
 	@Override
 	public void userSet() {
-		System.out.println("암기한 숫자를 입력해주세요.");
+		try {
+			System.out.println("암기한 숫자를 입력해주세요.");
+			for (int i = 0; i < userNumber.length; i++) {
+				while (true) {
+					System.out.printf("> ");
+					userNumber[i] = user.nextInt();
+					user.nextLine();
+					if (userNumber[i] < 1 || userNumber[i] > 100) {
+						System.out.println("1 ~ 100 사이의 숫자만 입력 가능합니다.");
+						System.out.println((i + 1) + "번째 숫자를 다시 입력해주세요.");
+					} else {
+						break;
+					}
+				}
+				for (int j = 0; j < i; j++) {
 
-		for (int i = 0; i < userNumber.length; i++) {
-			while (true) {
-				System.out.printf("> ");
-				userNumber[i] = user.nextInt();
-				user.nextLine();
-				if (userNumber[i] < 1 || userNumber[i] > 100) {
-					System.out.println("1 ~ 100 사이의 숫자만 입력 가능합니다.");
-					System.out.println((i + 1) + "번째 숫자를 다시 입력해주세요.");
-				} else {
-					break;
+					if (userNumber[i] == userNumber[j]) {
+						System.out.println("중복된 숫자를 입력할 수 없습니다.");
+						System.out.println(i + 1 + "번째 숫자를 다시 입력해주세요.");
+						i--;
+					}
 				}
 			}
-			for (int j = 0; j < i; j++) {
 
-				if (userNumber[i] == userNumber[j]) {
-					System.out.println("중복된 숫자를 입력할 수 없습니다.");
-					System.out.println(i + 1 + "번째 숫자를 다시 입력해주세요.");
-					i--;
-				}
-			}
+		} catch (Exception e) {
+			user.nextLine();
+			System.out.println("문자는 입력할 수 없습니다.");
+			System.out.println("처음부터 다시 입력해주세요.");
+			userSet();
 		}
 
 	}
@@ -233,32 +271,31 @@ public class Numbers implements NumberFace {
 			lv++;
 			time = time + 2;
 		}
-		challenge = 0;
-
 	}
 
 	public void challenge(int challenge) {
-		int lv = challenge;
-		int time = challenge;
-		this.challenge = challenge;
-		boolean challengeTrue = true;
-		while (challengeTrue) {
-			random = level(lv);
-			userNumber = level(lv);
-			time(time);
-			memorization(seconds);
-			challengeTrue = rank(this.challenge, challengeTrue);
-			this.challenge++;
-			lv++;
-			time = time + 2;
-		}
-		this.challenge = 0;
+
+			int lv = challenge;
+			int time = challenge;
+			this.challenge = challenge;
+			boolean challengeTrue = true;
+			while (challengeTrue) {
+				random = level(lv);
+				userNumber = level(lv);
+				time(time);
+				memorization(seconds);
+				challengeTrue = rank(this.challenge, challengeTrue);
+				this.challenge++;
+				lv++;
+				time = time + 2;
+			}
+			this.save=this.challenge;
+			this.challenge=1;
 
 	}
 
 	@Override
 	public void run() {
-
 		while (run) {
 			menu = menu();
 			if (menu == 1) {
@@ -271,19 +308,21 @@ public class Numbers implements NumberFace {
 			} else if (menu == 4) {
 				challenge(challenge);
 			} else if (menu == 5) {
-				manual();
-			} else if (menu == 6) {
 				menu2();
 				if (menu == 1) {
-					save(challenge);
+					save(save);
 				} else if (menu == 2) {
-					String name=user.next();
+					System.out.print("파일명을 입력해주세요>\s");
+					String name = user.next();
 					user.nextLine();
 					load(name);
 				} else {
 					System.out.println("잘못 입력하셨습니다.");
 					System.out.println("1 이나 2를 입력해주세요.");
 				}
+
+			} else if (menu == 6) {
+				manual();
 			} else if (menu == 7) {
 				System.out.println("종료되었습니다.");
 				run = false;
@@ -297,35 +336,47 @@ public class Numbers implements NumberFace {
 
 	@Override
 	public String save(int score) {
+		int scores = score;
 		String name = "김민우";
-		System.out.print("이름을 입력해주세요> ");
+		System.out.print("이름을 입력해주세요>\s");
 		name = user.next();
+
 		try {
 			OutputStream record = new FileOutputStream("C:/Users/admin/Desktop/" + name + ".txt");
-			String lv = score + "";
+			if (score == 0) {
+				scores = 1;
+			}
+			String lv = scores + "";
 			byte[] by = lv.getBytes();
 			record.write(by);
 			record.close();
 		} catch (Exception e) {
 			e.getStackTrace();
 		}
+
+		System.out.println("저장 완료");
 		return name;
 	}
 
 	public void load(String name) {
-		StringBuffer a = new StringBuffer();
+		StringBuffer contentValue = new StringBuffer();
 		try {
 			File file = new File("C:/Users/admin/Desktop/" + name + ".txt");
 			FileReader file_reader = new FileReader(file);
 			int cur = 0;
 			while ((cur = file_reader.read()) != -1) {
-				a.append((char) cur);
+				contentValue.append((char) cur);
 			}
-			String x = a.toString();
-			int z = Integer.parseInt(x);
+			textValue = contentValue.toString();
+			challenge = Integer.parseInt(textValue);
+			if (challenge == 0) {
+				challenge = 1;
+			}
+			System.out.println(challenge + "\s단계부터 도전모드를 시작합니다.");
 			file_reader.close();
 		} catch (FileNotFoundException e) {
-			System.out.println("파일명을 정확히 입력해주세요");
+			System.out.println("파일명을 정확히 입력하셔야 합니다");
+			System.out.println("저장한 기록이 없다면 저장을 먼저 해주셔야합니다");
 			e.getStackTrace();
 		} catch (IOException e) {
 			System.out.println("파일명을 정확히 입력해주세요");

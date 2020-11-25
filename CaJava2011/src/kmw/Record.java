@@ -10,7 +10,7 @@ import java.io.OutputStream;
 
 public class Record {
 	public static void main(String[] args) {
-		String name="제발";
+		String name="김민우";
 		StringBuffer a= new StringBuffer();
 
 		//name=user.next();
@@ -25,9 +25,9 @@ public class Record {
 	            e.getStackTrace();
 		}
         try{
-        //파일 객체 생성
+        
         File file = new File("C:/Users/admin/Desktop/"+name+".txt");
-         //입력 스트림 생성
+        
          FileReader file_reader = new FileReader(file);
          int cur = 0;
          while((cur = file_reader.read()) != -1){
