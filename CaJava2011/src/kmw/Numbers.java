@@ -9,9 +9,9 @@ import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class Numbers extends NumberFace {
+public class Numbers {
 	Scanner user = new Scanner(System.in);
-
+	
 	private int[] random = new int[5];
 	private int[] userNumber = new int[5];
 	private int menu = 0;
@@ -20,19 +20,20 @@ public class Numbers extends NumberFace {
 	private int challenge = 1;
 	private int save = 1;
 	private String textValue;
+	
 
-	@Override
+
 	public void manual() {
 		System.out.println("-----------------------------------------");
 		System.out.println("|\s1 ~ 100 사이의 숫자가 나옵니다\t\t|");
-		System.out.println("|\s기본 설정은 숫자가 5개, 시간은 30초입니다\t|");
+		//System.out.println("|\s기본 설정은 숫자가 5개, 시간은 30초입니다\t|");
 		System.out.println("|\s숫자개수는 암기할 숫자의 개수를 설정할 수 있습니다\t|");
 		System.out.println("|\s시간을 설정할 수 있습니다(초 단위)\t\t|");
 		System.out.println("|\s암기한 숫자는 하나씩 입력하셔야 합니다\t\t|");
 		System.out.println("-----------------------------------------");
 	}
 
-	@Override
+
 	public int menu() {
 		try {
 			System.out.println("----------------");
@@ -80,12 +81,12 @@ public class Numbers extends NumberFace {
 
 	}
 
-	@Override
+
 	public int[] level(int lv) {
 		return new int[lv];
 	}
 
-	@Override
+
 	public void levelMenu() {
 		try {
 			System.out.println("몇개의 숫자를 외울지 입력해주세요");
@@ -102,12 +103,12 @@ public class Numbers extends NumberFace {
 
 	}
 
-	@Override
+
 	public int time(int sec) {
 		return seconds = sec;
 	}
 
-	@Override
+
 	public void timeMenu() {
 		try {
 			System.out.println("시간을 정해주세요(단위: 초)");
@@ -123,7 +124,7 @@ public class Numbers extends NumberFace {
 
 	}
 
-	@Override
+
 	public void random() {
 
 		for (int i = 0; i < random.length; i++) {
@@ -137,7 +138,7 @@ public class Numbers extends NumberFace {
 		}
 	}
 
-	@Override
+
 	public void memorization(int seconds) {
 		random();
 		System.out.println("암기 시간은\s" + (seconds + 1) + "초 입니다.");
@@ -159,7 +160,7 @@ public class Numbers extends NumberFace {
 
 	}
 
-	@Override
+
 	public void userSet() {
 		try {
 			System.out.println("암기한 숫자를 입력해주세요.");
@@ -194,7 +195,7 @@ public class Numbers extends NumberFace {
 
 	}
 
-	@Override
+
 	public void result() {
 		System.out.println("정답");
 		System.out.printf("[ ");
@@ -205,7 +206,7 @@ public class Numbers extends NumberFace {
 
 	}
 
-	@Override
+
 	public void result(int[] array) {
 		System.out.println("입력한 숫자");
 		System.out.printf("[ ");
@@ -215,7 +216,7 @@ public class Numbers extends NumberFace {
 		System.out.println("]");
 	}
 
-	@Override
+
 	public void rank() {
 
 		int x = 0;
@@ -234,7 +235,7 @@ public class Numbers extends NumberFace {
 		System.out.println();
 	}
 
-	@Override
+
 	public boolean rank(int challenge, boolean ok) {
 		int x = 0;
 		for (int i = 0; i < random.length; i++) {
@@ -255,7 +256,7 @@ public class Numbers extends NumberFace {
 		}
 	}
 
-	@Override
+
 	public void challenge() {
 		int lv = 1;
 		int time = 1;
@@ -294,7 +295,7 @@ public class Numbers extends NumberFace {
 
 	}
 
-	@Override
+
 	public void run() {
 		while (run) {
 			menu = menu();
@@ -334,7 +335,6 @@ public class Numbers extends NumberFace {
 
 	}
 
-	@Override
 	public String save(int score) {
 		int scores = score;
 		String name = "김민우";
