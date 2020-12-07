@@ -7,32 +7,28 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
 
-public class Ex11_09_wordcount_kimminwoo {
+public class Ex11_09_wordcount_김민우 {
 	public static void main(String[] args) throws IOException {
-		FileReader fr = new FileReader("lyrics.txt");
-		BufferedReader br = new BufferedReader(fr);
+		BufferedReader br = new BufferedReader(new FileReader("lyrics.txt"));
 		HashMap<String, Integer> hm = new HashMap<String, Integer>();
 		String lyrics;
 		while ((lyrics = br.readLine()) != null) {
-			String[] word = lyrics.split(" ");
-			for (int i = 0; i < word.length; i++) {
+			String[] word = lyrics.split("\s");
+			int length = word.length;
+			for (int i = 0; i < length; i++) {
 				if (hm.containsKey(word[i])) {
-					int count = hm.get(word[i]);
-					count++;
-					hm.put(word[i], count);
+					hm.put(word[i], hm.get(word[i]) + 1);
 				} else {
 					hm.put(word[i], 1);
 				}
 			}
-
 		}
 		br.close();
 		Set<String> set = hm.keySet();
 		Iterator<String> iter = set.iterator();
 		while (iter.hasNext()) {
 			String lyricsT = iter.next();
-			System.out.println(lyricsT + ": " + hm.get(lyricsT));
+			System.out.println(lyricsT + ":\s" + hm.get(lyricsT));
 		}
-
 	}
 }

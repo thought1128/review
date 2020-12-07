@@ -4,7 +4,7 @@ import java.io.File;
 
 public class Ex11_01_File {
 	public static void main(String[] args) {
-		File win = new File("c:\\windows");
+		File win = new File("c:\\windows");// 파일의 경로를 입력 받아서 객체생성
 		System.out.println(win.toString());
 		System.out.println(win);
 

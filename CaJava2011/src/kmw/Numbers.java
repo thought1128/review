@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class Numbers {
-	Scanner user = new Scanner(System.in);
+	private Scanner user = new Scanner(System.in);
 	
 	private int[] random = new int[5];
 	private int[] userNumber = new int[5];
@@ -21,16 +21,27 @@ public class Numbers {
 	private int save = 1;
 	private String textValue;
 	
-
+	String manual="\"-----------------------------------------\"\r\n" + 
+			"				+ \"\\n|\\s1 ~ 100 사이의 숫자가 나옵니다\\t\\t|\"\r\n" + 
+			"				+ \"\\n|\\s시간을 설정할 수 있습니다(초 단위)\\t\\t|\"\r\n" + 
+			"				+ \"\\n|\\s암기한 숫자는 하나씩 입력하셔야 합니다\\t\\t|\"\r\n" + 
+			"				+ \"\\n-----------------------------------------\"";
 
 	public void manual() {
-		System.out.println("-----------------------------------------");
-		System.out.println("|\s1 ~ 100 사이의 숫자가 나옵니다\t\t|");
-		//System.out.println("|\s기본 설정은 숫자가 5개, 시간은 30초입니다\t|");
-		System.out.println("|\s숫자개수는 암기할 숫자의 개수를 설정할 수 있습니다\t|");
-		System.out.println("|\s시간을 설정할 수 있습니다(초 단위)\t\t|");
-		System.out.println("|\s암기한 숫자는 하나씩 입력하셔야 합니다\t\t|");
-		System.out.println("-----------------------------------------");
+		/*
+		 * System.out.println("-----------------------------------------");
+		 * System.out.println("|\s1 ~ 100 사이의 숫자가 나옵니다\t\t|");
+		 * System.out.println("|\s숫자개수는 암기할 숫자의 개수를 설정할 수 있습니다\t|");
+		 * System.out.println("|\s시간을 설정할 수 있습니다(초 단위)\t\t|");
+		 * System.out.println("|\s암기한 숫자는 하나씩 입력하셔야 합니다\t\t|");
+		 * System.out.println("-----------------------------------------");
+		 */
+		System.out.println("-----------------------------------------"
+				+ "\n|\s1 ~ 100 사이의 숫자가 나옵니다\t\t|"
+				+ "\n|\s시간을 설정할 수 있습니다(초 단위)\t\t|"
+				+ "\n|\s암기한 숫자는 하나씩 입력하셔야 합니다\t\t|"
+				+ "\n-----------------------------------------");
+		
 	}
 
 
@@ -53,10 +64,9 @@ public class Numbers {
 		} catch (Exception e) {
 			user.nextLine();
 			System.out.println("문자는 입력이 되지 않습니다.");
-			System.out.println("1 ~ 7 사이의 숫자를 입력하셔야 합니다");
+			System.out.println("맞는 번호를 입력해주세요");
 			menu();
 		}
-
 		return menu;
 	}
 
@@ -70,11 +80,10 @@ public class Numbers {
 			System.out.println("-----------------");
 			System.out.print("> ");
 			menu = user.nextInt();
-			user.nextLine();
 		} catch (Exception e) {
 			user.nextLine();
-			System.out.println("문자는 입력이 되지 않습니다");
-			System.out.println("1과 2로 메뉴를 선택해야 합니다");
+			System.out.println("문자는 입력이 되지 않습니다.");
+			System.out.println("맞는 번호를 입력해주세요");
 			menu2();
 		}
 		return menu;
@@ -95,12 +104,12 @@ public class Numbers {
 			random = level(lv);
 			userNumber = level(lv);
 			System.out.println("이제\s" + lv + "개의 숫자가 나옵니다.");
-		} catch (Exception e) {
+		}catch (Exception e) {
 			user.nextLine();
-			System.out.println("문자는 입력할 수 없습니다.");
+			System.out.println("문자는 입력이 되지 않습니다.");
+			System.out.println("숫자를 입력해주세요");
 			levelMenu();
 		}
-
 	}
 
 
@@ -116,9 +125,10 @@ public class Numbers {
 			int sec = user.nextInt();
 			seconds = sec - 1;
 			System.out.println("시간이\s" + sec + "초로 설정 되었습니다.");
-		} catch (Exception e) {
+		}catch (Exception e) {
 			user.nextLine();
-			System.out.println("문자는 입력할 수 없습니다.");
+			System.out.println("문자는 입력이 되지 않습니다.");
+			System.out.println("숫자를 입력해주세요");
 			timeMenu();
 		}
 
@@ -126,8 +136,8 @@ public class Numbers {
 
 
 	public void random() {
-
-		for (int i = 0; i < random.length; i++) {
+		int random_length=random.length;
+		for (int i = 0; i < random_length; i++) {
 			random[i] = (int) (Math.random() * 100) + 1;
 			for (int j = 0; j < i; j++) {
 				if (random[i] == random[j]) {
@@ -164,7 +174,8 @@ public class Numbers {
 	public void userSet() {
 		try {
 			System.out.println("암기한 숫자를 입력해주세요.");
-			for (int i = 0; i < userNumber.length; i++) {
+			int userNumber_length=userNumber.length;
+			for (int i = 0; i < userNumber_length; i++) {
 				while (true) {
 					System.out.printf("> ");
 					userNumber[i] = user.nextInt();
@@ -192,14 +203,14 @@ public class Numbers {
 			System.out.println("처음부터 다시 입력해주세요.");
 			userSet();
 		}
-
 	}
 
 
 	public void result() {
 		System.out.println("정답");
 		System.out.printf("[ ");
-		for (int i = 0; i < random.length; i++) {
+		int random_length=random.length;
+		for (int i = 0; i < random_length; i++) {
 			System.out.print(random[i] + " ");
 		}
 		System.out.println("]");
@@ -210,7 +221,8 @@ public class Numbers {
 	public void result(int[] array) {
 		System.out.println("입력한 숫자");
 		System.out.printf("[ ");
-		for (int i = 0; i < array.length; i++) {
+		int userNumber_length=array.length;
+		for (int i = 0; i < userNumber_length; i++) {
 			System.out.print(array[i] + " ");
 		}
 		System.out.println("]");
@@ -218,10 +230,10 @@ public class Numbers {
 
 
 	public void rank() {
-
 		int x = 0;
-		for (int i = 0; i < random.length; i++) {
-			for (int j = 0; j < userNumber.length; j++) {
+		int random_length=random.length;
+		for (int i = 0; i < random_length; i++) {
+			for (int j = 0; j < random_length; j++) {
 				if (random[i] == userNumber[j]) {
 					x++;
 				}
@@ -238,7 +250,8 @@ public class Numbers {
 
 	public boolean rank(int challenge, boolean ok) {
 		int x = 0;
-		for (int i = 0; i < random.length; i++) {
+		int random_length=random.length;
+		for (int i = 0; i < random_length; i++) {
 			for (int j = 0; j < userNumber.length; j++) {
 				if (random[i] == userNumber[j]) {
 					x++;
@@ -309,19 +322,23 @@ public class Numbers {
 			} else if (menu == 4) {
 				challenge(challenge);
 			} else if (menu == 5) {
-				menu2();
-				if (menu == 1) {
-					save(save);
-				} else if (menu == 2) {
-					System.out.print("파일명을 입력해주세요>\s");
-					String name = user.next();
+				d:while(true) {
+					menu2();
 					user.nextLine();
-					load(name);
-				} else {
-					System.out.println("잘못 입력하셨습니다.");
-					System.out.println("1 이나 2를 입력해주세요.");
+					if (menu == 1) {
+						save(save);
+						break d;
+					} else if (menu == 2) {
+						System.out.print("파일명을 입력해주세요>\s");
+						String name = user.next();
+						user.nextLine();
+						load(name);
+						break d;
+					} else {
+						System.out.println("문자는 입력이 되지 않습니다.");
+						System.out.println("맞는 번호를 입력해주세요");
+					}
 				}
-
 			} else if (menu == 6) {
 				manual();
 			} else if (menu == 7) {
@@ -375,13 +392,14 @@ public class Numbers {
 			System.out.println(challenge + "\s단계부터 도전모드를 시작합니다.");
 			file_reader.close();
 		} catch (FileNotFoundException e) {
+			e.getStackTrace();
+			System.out.println("파일이 없습니다.");
 			System.out.println("파일명을 정확히 입력하셔야 합니다");
 			System.out.println("저장한 기록이 없다면 저장을 먼저 해주셔야합니다");
-			e.getStackTrace();
 		} catch (IOException e) {
-			System.out.println("파일명을 정확히 입력해주세요");
 			e.getStackTrace();
+			System.out.println("파일명을 정확히 입력하셔야 합니다");
+			System.out.println("저장한 기록이 없다면 저장을 먼저 해주셔야합니다");
 		}
 	}
-
 }

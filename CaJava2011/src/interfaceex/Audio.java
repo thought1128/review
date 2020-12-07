@@ -1,6 +1,6 @@
 package interfaceex;
 
-public class Audio implements RemoteCon {
+public class Audio implements RemoteCon,RemoteCon02{
 	@Override
 	public void setVolume(int volume) {
 
@@ -16,6 +16,11 @@ public class Audio implements RemoteCon {
 	public void trunOff() {
 		System.out.println("Audio를 켭니다.");
 
+	}
+
+	@Override
+	public void setMute(boolean mute) {
+		RemoteCon.super.setMute(mute);
 	}
 
 }
